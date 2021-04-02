@@ -1,0 +1,40 @@
+.header{
+    border: 4px solid black;
+    min-height: 300px;
+    background-position: center center;
+    background-size: 100% 100%;
+}
+.header .logo{
+    height: 50px;
+}
+.title-container{
+    color: rgba(255, 255, 255, 0.699);
+    text-align: center;
+    font-size: 2em;
+}
+
+.header nav {
+    padding: 1px;
+    background: rgba(0,0,0,0.5);
+}
+
+.nav-link{
+    color: white !important;
+}
+
+.header nav ul{
+    display: flex;
+    align-items: center;
+}
+
+.nav li{
+    display: inline;
+    margin-left: 50px;
+    
+  }
+  
+  .nav a{
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.877);
+    font-weight: bold;
+  }
