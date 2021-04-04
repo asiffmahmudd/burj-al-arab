@@ -16,8 +16,12 @@ const Login = () => {
     const handleSignIn = () => {
         signIn()
         .then(res => {
-            setLoggedInUser(res);
-            history.replace(from);
+            if(res){
+                const {displayName, email} = res;
+                const signedInUser = {displayName: displayName, email: email}
+                setLoggedInUser(signedInUser);
+                history.replace(from);
+            }
         })
     }
 
