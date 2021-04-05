@@ -77,7 +77,7 @@ const Book = () => {
                         }}
                     />
                 </Grid>
-                <Button onClick={handleBooking} variant="contained" color="primary">Book Now</Button>
+                <Link to="/"><Button onClick={handleBooking} variant="contained" color="primary">Book Now</Button></Link>
             </MuiPickersUtilsProvider>
             <Bookings></Bookings>
         </div>

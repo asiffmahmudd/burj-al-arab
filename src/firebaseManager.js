@@ -15,7 +15,6 @@ export const signIn = () =>{
     .signInWithPopup(provider)
     .then((result) => {
         var user = result.user;
-        saveToken();
         return user;
     }).catch((error) => {
         alert(error.message);
@@ -31,9 +30,9 @@ export const signOut = () =>{
 }
 
 export const saveToken = () => {
-    firebase.auth().currentUser.getIdToken(true)
+    return firebase.auth().currentUser.getIdToken(true)
     .then(function(idToken) {
-        sessionStorage.setItem('token', idToken);
+        return idToken;
     }).catch(function(error) {
         alert(error.message);
     });

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import {FaGooglePlusSquare} from 'react-icons/fa';
 import { useHistory, useLocation } from 'react-router';
 import { UserContext } from '../../App';
-import { signIn } from '../../firebaseManager';
+import { saveToken, signIn } from '../../firebaseManager';
 
 
 const Login = () => {
@@ -20,7 +20,12 @@ const Login = () => {
                 const {displayName, email} = res;
                 const signedInUser = {displayName: displayName, email: email}
                 setLoggedInUser(signedInUser);
-                history.replace(from);
+                saveToken()
+                .then(idToken => {
+                    sessionStorage.setItem('token', idToken)
+                    history.replace(from);
+                })
+                
             }
         })
     }
