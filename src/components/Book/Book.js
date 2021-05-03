@@ -34,7 +34,7 @@ const Book = () => {
 
     const handleBooking = () => {
         const newBooking = {...loggedInUser, ...selectedDate};
-        fetch('http://localhost:4000/addbooking',{
+        fetch('https://burj-al-arabb.herokuapp.com/addbooking',{
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(newBooking)  
