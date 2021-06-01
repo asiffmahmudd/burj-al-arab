@@ -39,7 +39,13 @@ const Home = () => {
             <div className="container">
                 <div className="row mt-5 mb-5 ">
                     {
-                        rooms.map(room => <div className="col-md-4 mt-4 d-flex justify-content-center"><Room key={room.bedType} room={room}></Room></div>)
+                        rooms.map((room, index) => {
+                            return (
+                                <div key={index} className="col-md-4 mt-4 d-flex justify-content-center">
+                                    <Room key={room.bedType} room={room}></Room>
+                                </div>
+                            )
+                        })
                     }
                 </div>
             </div>

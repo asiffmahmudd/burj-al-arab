@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../../App';
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '../../Context/AuthContext';
 
 const Bookings = () => {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const {loggedInUser} = useAuth()
     const [bookings, setBookings] = useState([]);
     
     useEffect(() => {
-        fetch('https://burj-al-arabb.herokuapp.com/bookings?email='+loggedInUser.email, {
+        fetch('https://burj-al-arabb.herokuapp.com/bookings?email='+loggedInUser?.email, {
             method: 'GET',
             headers: { 
                 'Content-Type': 'application/json',
@@ -15,14 +15,22 @@ const Bookings = () => {
         })
         .then(res => res.json())
         .then(data => setBookings(data))
-    }, [])
+    }, [loggedInUser?.email])
     
     return (
-        <div className="container col-md-5 mt-5 b-5">
-            <h3>You have {bookings.length} bookings</h3>
+        <div className="container col-md-5 mt-5 b-5 pt-4 pb-5">
+            <h3 className="text-center">You have {bookings.length} bookings</h3>
             <ul>
                 {
-                    bookings.map(booking => <li>{booking.displayName} Check in date: {(new Date(booking.checkInDate).toDateString('dd/mm/yy'))} Check out date: {(new Date(booking.checkOutDate).toDateString('dd/mm/yy'))}</li>)
+                    bookings.map((booking,index) => {
+                        return (
+                            <li key={index}>
+                                {/* {booking.displayName}  */}
+                                Check in date: {(new Date(booking.checkInDate).toDateString('dd/mm/yy'))} 
+                                Check out date: {(new Date(booking.checkOutDate).toDateString('dd/mm/yy'))}
+                            </li>
+                        );
+                    })
                 }
             </ul>
         </div>

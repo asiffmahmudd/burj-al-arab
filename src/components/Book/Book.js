@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import 'date-fns';
@@ -9,12 +9,11 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import Button from '@material-ui/core/Button';
-import { UserContext } from '../../App';
-import Bookings from '../Bookings/Bookings';
+import { useAuth } from '../../Context/AuthContext';
 
 
 const Book = () => {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const {loggedInUser} = useAuth()
     const {bedType} = useParams();
     const [selectedDate, setSelectedDate] = useState({
         checkInDate : new Date(),
@@ -79,7 +78,6 @@ const Book = () => {
                 </Grid>
                 <Link to="/"><Button onClick={handleBooking} variant="contained" color="primary">Book Now</Button></Link>
             </MuiPickersUtilsProvider>
-            <Bookings></Bookings>
         </div>
     );
 };

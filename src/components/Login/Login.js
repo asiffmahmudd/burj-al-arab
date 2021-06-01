@@ -1,35 +1,32 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {FaGooglePlusSquare} from 'react-icons/fa';
 import { useHistory, useLocation } from 'react-router';
-import { UserContext } from '../../App';
-import { saveToken, signIn } from '../../firebaseManager';
+import { useAuth } from '../../Context/AuthContext';
 
 
 const Login = () => {
 
-    const[loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const {logIn, saveToken} = useAuth()
     let history = useHistory();
     let location = useLocation();
 
     let { from } = location.state || { from: { pathname: "/" } };
     
-    const handleSignIn = () => {
-        signIn()
-        .then(res => {
-            if(res){
-                const {displayName, email} = res;
-                const signedInUser = {displayName: displayName, email: email}
-                setLoggedInUser(signedInUser);
-                saveToken()
-                .then(idToken => {
-                    sessionStorage.setItem('token', idToken)
-                    history.replace(from);
-                })
-                
-            }
-        })
+    const handleSignIn = async () => {
+        
+        try{
+            await logIn()
+            saveToken()
+            .then(idToken => {
+                sessionStorage.setItem('token', idToken)
+                history.replace(from);
+            })
+            // history.replace(from)
+        }
+        catch(e){
+            alert(e.message)
+        }
     }
-
     return (
         <div className="login">
             <div className="container">

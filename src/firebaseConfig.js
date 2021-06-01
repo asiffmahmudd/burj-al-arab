@@ -1,8 +1,21 @@
-export const firebaseConfig = {
-    apiKey: "AIzaSyB67jlhlUKbCorpsD3obwq7b49CBQQD_GA",
-    authDomain: "burj-al-arab-4e76e.firebaseapp.com",
-    projectId: "burj-al-arab-4e76e",
-    storageBucket: "burj-al-arab-4e76e.appspot.com",
-    messagingSenderId: "389109077785",
-    appId: "1:389109077785:web:4506b6130ed7c42610d788"
-};
+import firebase from "firebase/app"
+import "firebase/auth"
+import "firebase/firestore";
+
+const firebaseConfig = {
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID
+}
+
+let app;
+
+if (!firebase.apps.length) {
+    app = firebase.initializeApp(firebaseConfig);
+}
+
+export const auth = app.auth()
+export default app

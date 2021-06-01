@@ -1,22 +1,17 @@
-import React, { useContext } from 'react';
+import React  from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 import header from '../../images/header.png';
 import logo from '../../images/icons/logo.png';
-import { UserContext } from '../../App';
-import { signOut } from '../../firebaseManager';
+import { useAuth } from '../../Context/AuthContext';
 
 const Header = () => {
 
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+
+    const {loggedInUser, logOut} = useAuth()
 
     const handleLogout = () => {
-        signOut()
-        .then(res => {
-            if(res){
-                setLoggedInUser({});
-            }
-        });
+        logOut();
     }
     return (
         <div style={{ backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${header})` }} className="header">
@@ -32,18 +27,20 @@ const Header = () => {
                                 <Link className="nav-link" to="/home">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/login">Login</Link>
+                                <Link className="nav-link btn-book" to="/bookings">Bookings</Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link btn-book" to="/book">Book</Link>
-                            </li>
-                                      
+                            {
+                                !loggedInUser &&
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/login">Login</Link>
+                                </li>
+                            }          
                         </ul>
                         <ul className="navbar-nav ml-auto">
                             {   loggedInUser?.email &&
                                 <>
                                     <li className="nav-item">
-                                        <span className="nav-link">{loggedInUser?.displayName}</span>
+                                        <span className="nav-link">{loggedInUser?.email}</span>
                                     </li>
                                     <li className="nav-item">
                                         <button className="btn btn-warning" onClick={handleLogout}>Log Out</button>
