@@ -4,8 +4,10 @@ import { useAuth } from '../../Context/AuthContext';
 const Bookings = () => {
     const {loggedInUser} = useAuth()
     const [bookings, setBookings] = useState([]);
+    const [loading, setLoading] = useState(false);
     
     useEffect(() => {
+        setLoading(true)
         fetch('https://burj-al-arabb.herokuapp.com/bookings?email='+loggedInUser?.email, {
             method: 'GET',
             headers: { 
@@ -14,25 +16,42 @@ const Bookings = () => {
             }
         })
         .then(res => res.json())
-        .then(data => setBookings(data))
+        .then(data => {
+            setBookings(data)
+            setLoading(false)
+        })
     }, [loggedInUser?.email])
     
     return (
-        <div className="container col-md-5 mt-5 b-5 pt-4 pb-5">
-            <h3 className="text-center">You have {bookings.length} bookings</h3>
-            <ul>
-                {
-                    bookings.map((booking,index) => {
-                        return (
-                            <li key={index}>
-                                {/* {booking.displayName}  */}
-                                Check in date: {(new Date(booking.checkInDate).toDateString('dd/mm/yy'))} 
-                                Check out date: {(new Date(booking.checkOutDate).toDateString('dd/mm/yy'))}
-                            </li>
-                        );
-                    })
-                }
-            </ul>
+        <div className="row mt-5 b-5 pt-4 pb-5">
+            {   
+                loading &&
+                <h3 className="text-center text-warning col-md-12">Loading.....</h3>    
+            }
+            {
+                !loading && 
+                <>
+                    <h3 className="text-center col-md-12">You have {bookings.length} bookings</h3>
+                    <h3 className="text-center col-md-12">You have {bookings.length} bookings</h3>
+                    <div className="col-md-5 mx-auto">
+                        <ul>
+                            {
+                                bookings.map((booking,index) => {
+                                    return (
+                                        <li key={index}>
+                                            {/* {booking.displayName}  */}
+                                            Check in date: {(new Date(booking.checkInDate).toDateString('dd/mm/yy'))} 
+                                            Check out date: {(new Date(booking.checkOutDate).toDateString('dd/mm/yy'))}
+                                        </li>
+                                    );
+                                })
+                            }
+                        </ul>
+                    </div>
+                </>
+            }
+            
+            
         </div>
     );
 };
