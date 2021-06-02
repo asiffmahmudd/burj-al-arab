@@ -12,10 +12,18 @@ const Bookings = () => {
             method: 'GET',
             headers: { 
                 'Content-Type': 'application/json',
-                authorization: `Bearer ${sessionStorage.getItem('token')}`
+                authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) {
+                alert(res.statusText);
+                setLoading(false)
+                return res.json()
+            }
+            else
+                return res.json()
+        })
         .then(data => {
             setBookings(data)
             setLoading(false)
@@ -31,7 +39,6 @@ const Bookings = () => {
             {
                 !loading && 
                 <>
-                    <h3 className="text-center col-md-12">You have {bookings.length} bookings</h3>
                     <h3 className="text-center col-md-12">You have {bookings.length} bookings</h3>
                     <div className="col-md-5 mx-auto">
                         <ul>

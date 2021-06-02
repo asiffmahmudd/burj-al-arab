@@ -18,7 +18,7 @@ const Login = () => {
             await logIn()
             saveToken()
             .then(idToken => {
-                sessionStorage.setItem('token', idToken)
+                localStorage.setItem('token', idToken)
                 history.replace(from);
             })
             // history.replace(from)

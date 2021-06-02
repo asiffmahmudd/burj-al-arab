@@ -11,6 +11,7 @@ const Header = () => {
     const {loggedInUser, logOut} = useAuth()
 
     const handleLogout = () => {
+        localStorage.removeItem('token')
         logOut();
     }
     return (
