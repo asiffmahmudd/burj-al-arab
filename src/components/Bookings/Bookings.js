@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../Context/AuthContext';
+import { serverURL } from '../../serverUrl';
 
 const Bookings = () => {
     const {loggedInUser} = useAuth()
@@ -8,7 +9,7 @@ const Bookings = () => {
     
     useEffect(() => {
         setLoading(true)
-        fetch('https://burj-al-arabb.herokuapp.com/bookings?email='+loggedInUser?.email, {
+        fetch(serverURL+'/bookings?email='+loggedInUser?.email, {
             method: 'GET',
             headers: { 
                 'Content-Type': 'application/json',

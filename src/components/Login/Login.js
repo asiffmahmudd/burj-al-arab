@@ -21,7 +21,6 @@ const Login = () => {
                 localStorage.setItem('token', idToken)
                 history.replace(from);
             })
-            // history.replace(from)
         }
         catch(e){
             alert(e.message)

@@ -1,0 +1,1 @@
+export const serverURL = "https://burj-al-arab.onrender.com"

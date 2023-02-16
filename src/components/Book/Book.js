@@ -10,6 +10,7 @@ import {
 } from '@material-ui/pickers';
 import Button from '@material-ui/core/Button';
 import { useAuth } from '../../Context/AuthContext';
+import { serverURL } from '../../serverUrl';
 
 
 const Book = () => {
@@ -33,7 +34,7 @@ const Book = () => {
 
     const handleBooking = () => {
         const newBooking = {...loggedInUser, ...selectedDate};
-        fetch('https://burj-al-arabb.herokuapp.com/addbooking',{
+        fetch(serverURL+'/addbooking',{
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(newBooking)  
